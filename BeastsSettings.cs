@@ -102,8 +102,6 @@ public class BeastsSettings : ISettings
                         {
                             ImGui.PopStyleColor();
                         }
-
-                        ImGui.NextColumn();
                     }
 
                     ImGui.EndTable();
