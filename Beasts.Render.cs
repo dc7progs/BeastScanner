@@ -150,8 +150,12 @@ public partial class Beasts
             circlePoints.Add(GameController.Game.IngameState.Camera.WorldToScreen(nextWorldPos));
         }
 
-        Graphics.DrawConvexPolyFilled(circlePoints.ToArray(),
-            color with { A = Color.ToByte((int)((double)0.2f * byte.MaxValue)) });
+        // SharpDX.Color is a struct and does not support the C# "with"
+        // expression. Using it here caused a compilation error. Instead,
+        // construct a new color with a lower alpha component.
+        var transparentColor = new Color(color.R, color.G, color.B,
+            (byte)(0.2f * byte.MaxValue));
+        Graphics.DrawConvexPolyFilled(circlePoints.ToArray(), transparentColor);
         Graphics.DrawPolyLine(circlePoints.ToArray(), color, 2);
     }
 }
